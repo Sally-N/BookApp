@@ -2,6 +2,7 @@ import React from 'react';
 import './header.css'
 import Navbar from '../Navbar/Navbar';
 import Searchform from '../SearchForm/Searchform';
+import './../../../src/index.css'
 
 
 const Header = () => {
