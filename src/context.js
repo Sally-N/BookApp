@@ -1,15 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, {
-    useState,
-    useContext,
-    useEffect
-}
-    from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useCallback } from 'react';
-
-const URL = "http: //openlibrary.org/search.json?title=the+lord+of+the+rings";
+const URL = "http://openlibrary.org/search.json?title=";
 const AppContext = React.createContext();
+
 const AppProvider = ({ children }) => {
     const [searchTerm, setSearchTerm] = useState("the lost world ");
     const [books, setBooks] = useState([]);
@@ -23,11 +18,12 @@ const AppProvider = ({ children }) => {
             const data = await response.json();
             console.log(data);
             const { docs } = data;
+            console.log(docs);
 
             if (docs) {
                 const booksData = docs.slice(0, 20).map((singleBook) => {
                     const { key, author_name, cover_i, subject_cat, edition_count, first_publish_year, title } = singleBook;
-                    return {
+                    return ({
                         id: key,
                         author: author_name,
                         cover_id: cover_i,
@@ -35,7 +31,7 @@ const AppProvider = ({ children }) => {
                         edition_count: edition_count,
                         first_publish_year: first_publish_year,
                         title: title
-                    }
+                    })
                 })
                 setBooks(booksData);
 

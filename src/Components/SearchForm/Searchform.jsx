@@ -13,10 +13,17 @@ const Searchform = () => {
 
     useEffect(() => searchText.current, [])
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        console.log(searchText.current)
+        let tempSearchTerm = searchText.current.trim();
+        console.log(tempSearchTerm, 'temp');
+        if ((tempSearchTerm.replace(/[^\w\s]/gi, "")).length === 0) {
+            setSearchTerm("the lost world");
+            setResultTitle("Please Enter Something ...");
+        } else {
+            setSearchTerm(searchText.current);
+        }
     }
 
     return (
@@ -27,7 +34,7 @@ const Searchform = () => {
                         <div className="search-form-elem flex flex-sb bg-white" >
                             <input type="text" className='form-control' value={searchText.current.focus} placeholder='The lost word ... '
                                 onChange={(e) => (searchText.current = e.target.value)}
-                                />
+                            />
                             <button type='submit' className='flex flex-c' onClick={handleSubmit}>
                                 <FaSearch className='text-purple' size={32} />
                             </button>
