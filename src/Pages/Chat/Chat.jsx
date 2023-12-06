@@ -1,11 +1,11 @@
 import React from 'react';
 
-const About = () => {
+const Chat = () => {
     return (
         <div>
-         About Page
+         Chat with ai
         </div>
     );
 };
 
-export default About;
+export default Chat;

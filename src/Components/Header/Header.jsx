@@ -18,9 +18,7 @@ const Header = () => {
                     </p>
                     <Searchform />
                 </div>
-
             </header>
-
         </div>
     );
 };

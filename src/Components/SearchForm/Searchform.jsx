@@ -11,7 +11,7 @@ const Searchform = () => {
     const searchText = useRef('')
     const navigate = useNavigate()
 
-    useEffect(() => searchText.current, [])
+    // useEffect(() => searchText.current, [])
 
 
     const handleSubmit = (e) => {
