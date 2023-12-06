@@ -9,6 +9,7 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false);
     const handleNavbar = () => setToggleMenu(!toggleMenu);
+    
     return (
         <nav className="navbar" id='navbar'>
             <div className="container navbar-content flex" >
