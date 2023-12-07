@@ -1,111 +1,39 @@
 // import axios from 'axios';
-// import React, { useState } from 'react';
-// import { useForm } from 'react-hook-form';
-// import { ChatCompletionRequestMessage } from "openai";
-// import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
+const Chat = () => {
+    const [prompt, setPrompt] = useState('');
+    const [response, setResponse] = useState('')
 
-// const Chat = () => {
-//     const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
-//     const navigate = useNavigate()
-//     const form = useForm({
-//         defaultValues: {
-//             prompt: ''
-//         }
-//     });
+   
+   const handleSubmit = async(e) => {
+    e.preventDefault();
+    try {
+        const res = await fetch('http://localhost:8080/conversation', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({content: prompt})
+        });
+     setResponse(res.data);
+    } catch (error) {
+        console.log(error);
+    }
+   }
 
-//     const isloading = form.formState.isSubmitting;
+    return (
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <form onSubmit={handleSubmit}>
+            <input value={prompt} onChange={(e) => setPrompt(e.target.value)}
+            style={{width: '100%', height: '50px', border: 'solid 1px red'}}/>
+            <button type='submit'>Submit</button>
+          </form>
+          <div style={{width: '100%', margin: '50px'}}>
+            <p>{response}</p>
+          </div>
+        </div>
+    );
+};
 
-//     const onSubmit = async (values) => {
-//         try {
-//             const userMessage = { role: "user", content: values.prompt };
-//             const newMessages = [...messages, userMessage];
-
-//             const response = await axios.post('/api/conversation', { messages: newMessages })
-//             setMessages((current) => [...current, userMessage, response.data]);
-
-//             form.reset();
-//         } catch (error) {
-//             if (error?.response?.status === 403) {
-//                 proModal.onOpen();
-//             } else {
-//                 toast.error("Something went wrong.");
-//             }
-//         } finally {
-//             navigate(0);
-//         }
-//     }
-
-//     return (
-//         <div>
-//             <div className="px-4 lg:px-8">
-//                 <div>
-//                     <Form {...form}>
-//                         <form
-//                             onSubmit={form.handleSubmit(onSubmit)}
-//                             className="
-//                 rounded-lg 
-//                 border 
-//                 w-full 
-//                 p-4 
-//                 px-3 
-//                 md:px-6 
-//                 focus-within:shadow-sm
-//                 grid
-//                 grid-cols-12
-//                 gap-2
-//               "
-//                         >
-//                             <FormField
-//                                 name="prompt"
-//                                 render={({ field }) => (
-//                                     <FormItem className="col-span-12 lg:col-span-10">
-//                                         <FormControl className="m-0 p-0">
-//                                             <Input
-//                                                 className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-//                                                 disabled={isLoading}
-//                                                 placeholder="How do I calculate the radius of a circle?"
-//                                                 {...field}
-//                                             />
-//                                         </FormControl>
-//                                     </FormItem>
-//                                 )}
-//                             />
-//                             <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
-//                                 Generate
-//                             </Button>
-//                         </form>
-//                     </Form>
-//                 </div>
-//                 <div className="space-y-4 mt-4">
-//                     {isLoading && (
-//                         <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
-//                             <Loader />
-//                         </div>
-//                     )}
-//                     {messages.length === 0 && !isLoading && (
-//                         <Empty label="No conversation started." />
-//                     )}
-//                     <div className="flex flex-col-reverse gap-y-4">
-//                         {messages.map((message) => (
-//                             <div
-//                                 key={message.content}
-//                                 className={cn(
-//                                     "p-8 w-full flex items-start gap-x-8 rounded-lg",
-//                                     message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
-//                                 )}
-//                             >
-//                                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-//                                 <p className="text-sm">
-//                                     {message.content}
-//                                 </p>
-//                             </div>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Chat;
+export default Chat;
