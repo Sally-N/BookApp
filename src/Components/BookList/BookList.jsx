@@ -9,9 +9,9 @@ import Book from './Book';
 
 
 const BookList = () => {
-    const { books,  resultTitle } = useGlobalContext();
+    const { searchedbooks,  resultTitle } = useGlobalContext();
 
-    const booksWithCovers = books.map((singleBook) => {
+    const booksWithCovers = searchedbooks.map((singleBook) => {
         return {
             ...singleBook,
             id: (singleBook.id).replace("/works/", ""),

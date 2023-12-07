@@ -6,12 +6,12 @@ const URL = "http://openlibrary.org/search.json?title=";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-    const [searchTerm, setSearchTerm] = useState("the lost world ");
-    const [books, setBooks] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("the hunger games");
+    const [searchedbooks, setSearchedBooks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [resultTitle, setResultTitle] = useState("");
 
-    const fetchBooks = useCallback(async () => {
+    const fetchSearchBooks = useCallback(async () => {
         setLoading(true);
         try {
             const response = await fetch(`${URL}${searchTerm}`);
@@ -33,7 +33,7 @@ const AppProvider = ({ children }) => {
                         title: title
                     })
                 })
-                setBooks(booksData);
+                setSearchedBooks(booksData);
 
                 if (booksData.length > 1) {
                     setResultTitle("Your search results")
@@ -42,7 +42,7 @@ const AppProvider = ({ children }) => {
                 }
             }
             else {
-                setBooks([]);
+                setSearchedBooks([]);
                 setResultTitle("No Search Result Found!");
             }
         } catch (error) {
@@ -50,16 +50,18 @@ const AppProvider = ({ children }) => {
             setLoading(false);
         }
     }, [searchTerm]);
+  
+
 
     useEffect(() => {
-        fetchBooks();
-    }, [searchTerm, fetchBooks]);
+        fetchSearchBooks();
+    }, [searchTerm, fetchSearchBooks]);
 
     return (
         <AppContext.Provider value={
             {
                 loading,
-                books,
+                searchedbooks,
                 setSearchTerm,
                 resultTitle,
                 setResultTitle
