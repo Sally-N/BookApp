@@ -1,33 +1,22 @@
 import React from 'react';
 import Header from '../../Components/Header/Header';
-// import MainSection from '../../Components/MainSection/main';
-// import BookList from '../../Components/BookList/BookList';
 import BookList from '../../Components/BookList/BookList';
-// import { Link } from 'react-router-dom';
-// import { Outlet } from 'react-router-dom';
+import {Outlet } from 'react-router-dom';
+// import BookList from '../../Components/BookList/BookList';
+// import { CategoriesButtons } from '../../Components/Categories/Categories';
+
 
 const Home = () => {
+    // http://openlibrary.org/subjects/love.json
+
     return (
-        <div>
+        <main>
             <Header />
-            {/* <MainSection /> */}
-            <BookList />        
-            {/* <ChatWithUiButton /> */}
-        </div>
+            <BookList />
+            <Outlet />
+        </main>
     );
 };
 
-
-// const ChatWithUiButton = () => {
-//     return <div
-//     style={{bottom: '10px', right: 0, width: '150px', height: '30px', backgroundColor: '#8d27ae'}}>
-//         <Link to={'/chat'}>
-//         <button style={{width: '100%', height: '100%'}}>
-//             Chat with BookWise
-//             {/* <span>Bookhub's book bot</span> */}
-//         </button>
-//         </Link>
-//     </div>
-// }
 
 export default Home;
