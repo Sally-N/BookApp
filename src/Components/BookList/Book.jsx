@@ -4,8 +4,8 @@ import "./BookList.css";
 
 const Book = (book) => {
     return (
-        <div className='book-item flex flex-column flex-sb'>
-            <div className='book-item-img'>
+        <div className='py-12 px-8 bg-white shadow-md flex flex-column flex-sb'>
+            <div className='max-'>
                 <img src={book.cover_img} alt="cover" />
             </div>
             <div className='book-item-info text-center'>

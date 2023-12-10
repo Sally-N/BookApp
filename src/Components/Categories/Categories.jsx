@@ -1,62 +1,308 @@
-import React, { useState } from "react"
-import Love from "./Love";
-import Contact from "./Contact";
-import Stuff from "./Stuff";
+import React, { useEffect, useState } from "react";
+import Book from "../BookList/Book";
+import coverImg from "../../Images/cover_not_found.jpg";
+import '../BookList/BookList.css';
 
 
+export const RomanceBooksComponent = () => {
+    const [catBooks, setCatBooks] = useState([]);
+    const [booksWithCovers, setBooksWithCovers] = useState([]);
 
-const Categoriesbuttons = () => {
-    const [currentContent, setCurrentContent] = useState('home');
-
-    const renderContent = () => {
-        switch (currentContent) {
-            case 'home':
-                return <Love />;
-            case 'about':
-                return <Contact />;
-            case 'contact':
-                return <Stuff />;
-            default:
-                return null;
+    async function getRomanceBooks() {
+        try {
+            const res = await fetch("http://openlibrary.org/subjects/romance.json");
+            console.log(res)
+            const data = await res.json();
+            setCatBooks(data.works);
+            console.log(data.works, 'data');
+        } catch (error) {
+            console.log(error, 'error')
         }
-    };
+
+        const booksWithCoversData = catBooks.map((singleBook) => {
+            console.log(singleBook, 'singlebook')
+            return {
+                ...singleBook,
+                id: (singleBook.key).replace("/works/", ""),
+                cover_img: singleBook.cover_id ? `https://covers.openlibrary.org/b/id/${singleBook.cover_id}-L.jpg` : coverImg,
+            }
+        })
+
+        setBooksWithCovers(booksWithCoversData);
+
+    }
+
+    useEffect(() => {
+        getRomanceBooks();
+    })
     return (
-        <div className="w-full px-40 pt-10" >
-            <div className="flex flex-row flex-wrap justify-between align-middle w-full">
-                <button onClick={() => setCurrentContent('home')}>Home</button>
-                <button onClick={() => setCurrentContent('about')}>About</button>
-                <button onClick={() => setCurrentContent('contact')}>Contact</button>
+        <section className='booklist'>
+            {booksWithCovers && (
+                <div className='container'>
+                    <div className='booklist-content grid'>
+                        {
+                            booksWithCovers.slice(0, 30).map((item, index) => {
+                                return (
+                                    <Book key={index} {...item} />
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            )}
+        </section>
+    );
+}
 
-                {renderContent()}
-            </div>
-        </div>
+export const CrimeBooksComponent = () => {
+    const [catBooks, setCatBooks] = useState([]);
+    const [booksWithCovers, setBooksWithCovers] = useState([]);
 
-    )
+    async function getCrimeBooks() {
+        try {
+            const res = await fetch("http://openlibrary.org/subjects/crime.json");
+            console.log(res)
+            const data = await res.json();
+            setCatBooks(data.works);
+            console.log(data.works, 'data');
+        } catch (error) {
+            console.log(error, 'error')
+        }
+
+        const booksWithCoversData = catBooks.map((singleBook) => {
+            console.log(singleBook, 'singlebook')
+            return {
+                ...singleBook,
+                id: (singleBook.key).replace("/works/", ""),
+                cover_img: singleBook.cover_id ? `https://covers.openlibrary.org/b/id/${singleBook.cover_id}-L.jpg` : coverImg,
+            }
+        })
+
+        setBooksWithCovers(booksWithCoversData);
+
+    }
+
+    useEffect(() => {
+        getCrimeBooks();
+    })
+    return (
+        <section className='booklist'>
+            {booksWithCovers && (
+                <div className='container'>
+                    <div className='booklist-content grid'>
+                        {
+                            booksWithCovers.slice(0, 30).map((item, index) => {
+                                return (
+                                    <Book key={index} {...item} />
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            )}
+        </section>
+    );
+}
+
+export const NatureBooksComponent = () => {
+    const [catBooks, setCatBooks] = useState([]);
+    const [booksWithCovers, setBooksWithCovers] = useState([]);
+
+    async function getNatureBooks() {
+        try {
+            const res = await fetch("http://openlibrary.org/subjects/nature.json");
+            console.log(res)
+            const data = await res.json();
+            setCatBooks(data.works);
+            console.log(data.works, 'data');
+        } catch (error) {
+            console.log(error, 'error')
+        }
+
+        const booksWithCoversData = catBooks.map((singleBook) => {
+            console.log(singleBook, 'singlebook')
+            return {
+                ...singleBook,
+                id: (singleBook.key).replace("/works/", ""),
+                cover_img: singleBook.cover_id ? `https://covers.openlibrary.org/b/id/${singleBook.cover_id}-L.jpg` : coverImg,
+            }
+        })
+
+        setBooksWithCovers(booksWithCoversData);
+
+    }
+
+    useEffect(() => {
+        getNatureBooks();
+    })
+    return (
+        <section className='booklist'>
+            {booksWithCovers && (
+                <div className='container'>
+                    <div className='booklist-content grid'>
+                        {
+                            booksWithCovers.slice(0, 30).map((item, index) => {
+                                return (
+                                    <Book key={index} {...item} />
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            )}
+        </section>
+    );
 }
 
 
-export default Categoriesbuttons;
+export const HistoryBooksComponent = () => {
+    const [catBooks, setCatBooks] = useState([]);
+    const [booksWithCovers, setBooksWithCovers] = useState([]);
+
+    async function getHistoryBooks() {
+        try {
+            const res = await fetch("http://openlibrary.org/subjects/religion.json");
+            console.log(res)
+            const data = await res.json();
+            setCatBooks(data.works);
+            console.log(data.works, 'data');
+        } catch (error) {
+            console.log(error, 'error')
+        }
+
+        const booksWithCoversData = catBooks.map((singleBook) => {
+            console.log(singleBook, 'singlebook')
+            return {
+                ...singleBook,
+                id: (singleBook.key).replace("/works/", ""),
+                cover_img: singleBook.cover_id ? `https://covers.openlibrary.org/b/id/${singleBook.cover_id}-L.jpg` : coverImg,
+            }
+        })
+
+        setBooksWithCovers(booksWithCoversData);
+
+    }
+
+    useEffect(() => {
+        getHistoryBooks();
+    })
+    return (
+        <section className='booklist'>
+            {booksWithCovers && (
+                <div className='container'>
+                    <div className='booklist-content grid'>
+                        {
+                            booksWithCovers.slice(0, 30).map((item, index) => {
+                                return (
+                                    <Book key={index} {...item} />
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            )}
+        </section>
+    );
+}
+
+export const BusinessBooksComponent = () => {
+    const [catBooks, setCatBooks] = useState([]);
+    const [booksWithCovers, setBooksWithCovers] = useState([]);
+
+    async function getBusinessBooks() {
+        try {
+            const res = await fetch("http://openlibrary.org/subjects/business.json");
+            console.log(res)
+            const data = await res.json();
+            setCatBooks(data.works);
+            console.log(data.works, 'data');
+        } catch (error) {
+            console.log(error, 'error')
+        }
+
+        const booksWithCoversData = catBooks.map((singleBook) => {
+            console.log(singleBook, 'singlebook')
+            return {
+                ...singleBook,
+                id: (singleBook.key).replace("/works/", ""),
+                cover_img: singleBook.cover_id ? `https://covers.openlibrary.org/b/id/${singleBook.cover_id}-L.jpg` : coverImg,
+            }
+        })
+
+        setBooksWithCovers(booksWithCoversData);
+
+    }
+
+    useEffect(() => {
+        getBusinessBooks()
+    })
+    return (
+        <section className='booklist'>
+            {booksWithCovers && (
+                <div className='container'>
+                    <div className='booklist-content grid'>
+                        {
+                            booksWithCovers.slice(0, 30).map((item, index) => {
+                                return (
+                                    <Book key={index} {...item} />
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            )}
+        </section>
+    );
+}
+
+export const FictionBooksComponent = () => {
+    const [catBooks, setCatBooks] = useState([]);
+    const [booksWithCovers, setBooksWithCovers] = useState([]);
+
+    async function getFictionBooks() {
+        try {
+            const res = await fetch("http://openlibrary.org/subjects/fitness.json");
+            console.log(res)
+            const data = await res.json();
+            setCatBooks(data.works);
+            console.log(data.works, 'data');
+        } catch (error) {
+            console.log(error, 'error')
+        }
+
+        const booksWithCoversData = catBooks.map((singleBook) => {
+            console.log(singleBook, 'singlebook')
+            return {
+                ...singleBook,
+                id: (singleBook.key).replace("/works/", ""),
+                cover_img: singleBook.cover_id ? `https://covers.openlibrary.org/b/id/${singleBook.cover_id}-L.jpg` : coverImg,
+            }
+        })
+
+        setBooksWithCovers(booksWithCoversData);
+
+    }
+
+    useEffect(() => {
+        getFictionBooks()
+    })
+    return (
+        <section className='booklist'>
+            {booksWithCovers && (
+                <div className='container'>
+                    <div className='booklist-content grid'>
+                        {
+                            booksWithCovers.slice(0, 30).map((item, index) => {
+                                return (
+                                    <Book key={index} {...item} />
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            )}
+        </section>
+    );
+}
 
 
-
-// export const Stuff = () => {
-//     return (
-//         <div>
-//             <h2>stuff QUESTIONS?</h2>
-//             <p>The easiest thing to do is post on
-//                 our <a href="http://forum.kirupa.com">forums</a>.
-//             </p>
-//         </div>
-//     );
-// }
-
-// export const Contact = () => {
-//     return (
-//         <div>
-//             <h2>Contact QUESTIONS?</h2>
-//             <p>The easiest thing to do is post on
-//                 our <a href="http://forum.kirupa.com">forums</a>.
-//             </p>
-//         </div>
-//     );
-// }

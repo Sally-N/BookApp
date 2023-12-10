@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import Searchform from '../SearchForm/Searchform';
 import './../../../src/index.css'
-import Categoriesbuttons from '../Categories/Categories';
+// import Categoriesbuttons from '../Categories/Categories';
 
 
 const Header = () => {
@@ -14,7 +14,6 @@ const Header = () => {
                     <h2 className='text-4xl text-white capitalize'>find the book of your choice
                     </h2><br />
                     <Searchform />
-                    <Categoriesbuttons/>
                 </div>
             </header>
         </div>
